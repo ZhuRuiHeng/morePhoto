@@ -1,0 +1,50 @@
+<view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view> 
+<view class="container {{music==true?'fixed':''}}" >
+    <view class='edit' bindtap='editTap'><image src="../img/setting.png" mode='widthFix'></image></view>
+    <view class='header'>
+        <view class='bgImage' wx:if="{{bgImg}}">
+            <view class='bg'></view>
+            <image src="{{bgImg}}" mode='aspectFill'></image>
+        </view>
+        <view class='bgImage' wx:else>
+            <view class='bg'></view>
+            <image src="{{userInfo.avatarUrl}}" mode='aspectFill'></image>
+        </view>
+        <view class='headerInform'>
+            <image class='avatarUrl' src="{{userInfo.avatarUrl}}" mode="widthFix"></image>
+            <view class='niceName'>{{userInfo.nickName}}</view>
+            <view class='id'>ID:{{member_number}}</view>
+            <view class='niceInform'>
+                <view class='niceFun'>
+                    <image src="../img/money.png" mode='widthFix'></image>
+                    积分：{{photo_fans_count}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <!--new  -->
+    <view class='listBox'>
+        <view class='icon' bindtap='openRed'>
+            <image src="../img/icon1.png" mode='widthFix'></image>
+            <text>瓜分红包</text>  
+        </view>
+        <!-- <view class='icon'>
+            <image src="../img/icon2.png" mode='widthFix'></image>
+            <text>积分商城</text>
+        </view> -->
+        <button class='icon' open-type="contact">
+            <image src="../img/icon3.png" mode='widthFix'></image>
+            <text>在线客服</text>
+        </button>
+        <view class='icon' bindtap='morePlay'>
+            <image src="../img/more1.png" mode='widthFix'></image>
+            <text>更多好玩</text>
+        </view>
+    </view>
+</view>
+<view class='background' wx:if='{{zindex}}'>
+    <view class='zindex'>
+        <image class='dels' src="../img/del.png" mode="aspectFill" bindtap='close'></image>
+        <image src="http://p1jrmxejh.bkt.clouddn.com/photo/red-pack-bg.png" mode='widthFix' bindtap='jump'></image>
+    </view>
+</view>

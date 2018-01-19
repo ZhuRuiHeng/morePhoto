@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view> 
+<view class="container">
+    <view class="grouplist_item" >
+        <navigator hover-class="none" class="navter" url="../set/set">
+          <image mode="aspectFill" class="groupimg" src="http://p1jrmxejh.bkt.clouddn.com/photo/231583485458085093.jpg"></image>
+          <view class='title'>
+              <view class="friends">
+                <image src="../img/add1.png" mode='widthFix'></image>
+                <view>创建相册</view>
+              </view>
+          </view>
+        </navigator>
+        <navigator hover-class="none" class="navter" url="../moban/moban">
+          <image mode="aspectFill" class="groupimg" src="http://p1jrmxejh.bkt.clouddn.com/photo/795125436687710110.jpg"></image>
+          <view class='title'>
+              <view class="friends">
+                <image src="../img/add1.png" mode='widthFix'></image>
+                <view>创建照片墙</view>
+              </view>
+          </view>
+        </navigator>
+    </view>  
+</view>
+

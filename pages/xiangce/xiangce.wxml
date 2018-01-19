@@ -1,0 +1,93 @@
+<view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view> 
+<view class="container">
+    <view class='top'>
+        <!--parent-->
+        <view class='navbar'>
+              <form report-submit="true" bindsubmit="bigBar" 
+                  class="formSubmit one {{big==1?'active':''}}" data-big='1'>
+                  <button class="submit one {{big==1?'active':''}}" formType="submit">我的相册</button>
+              </form>
+              <form report-submit="true" bindsubmit="bigBar" 
+                    class="formSubmit two {{big==2?'active':''}}" data-big='2'>
+                  <button class="submit two {{big==2?'active':''}}" formType="submit">我的照片墙</button>
+              </form>
+        </view> 
+        <!--child -->
+        <!-- 忆年列表 -->
+        <view class="grouplist_container" wx:if="{{big==1}}">
+            <view class="grouplist_item" wx:for="{{albums}}" wx:key="{{index}}">
+                <navigator hover-class="none" class="navter" url="../albumDetail/albumDetail?aid={{item.aid}}">
+                  <image mode="aspectFill" class="groupimg" src="{{item.cover}}"></image>
+                  <view class="mengcen">
+                    <text class="groupname">{{item.album_name}}</text>
+                    <view class="info">
+                      <view class="infoBox">
+                        <image class="member-img" src="../img/people.png"></image>
+                        <view class="member">
+                          <text class="groupdes">{{item.member_ids}}人</text>
+                        </view>
+                      </view>
+                      <view class="infoBox">
+                        <image class="picture-img" src="../img/plant.png"></image>
+                        <view class="picture">
+                          <text class="groupdes">{{item.count_dynamic}}条</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </navigator>
+            </view> 
+        </view> 
+        <!--照片墙 -->
+        <block>
+            <view class='navbar child' wx:if="{{big==2}}">
+                  <form report-submit="true" bindsubmit="navbar" 
+                      class="formSubmit one {{now==1?'active1':''}}" data-now='1'>
+                      <button class="submit one" formType="submit">照片墙</button>
+                  </form>
+                  <form report-submit="true" bindsubmit="navbar" 
+                        class="formSubmit two {{now==2?'active1':''}}" data-now='2'>
+                      <button class="submit two"  formType="submit">照片集</button>
+                  </form>
+            </view> 
+            <!--1  -->
+            <view class='content' wx:if="{{big == 2 && now==1}}">
+                  <view class='item' wx:for="{{photosList}}" wx:key="{{index}}" data-pw_id='{{item.id}}' >
+                    <view class='dels' bindtap="dels" data-pw_id='{{item.id}}' data-photoindex='{{index}}'>
+                        <image class='dels' src="../img/dels.png" mode="aspectFill"></image>
+                    </view>
+                    <view class='addTimes'>
+                        <view class='addTime'>
+                            <view class='timeBig'>{{item.day}}</view>
+                            <view class='timeTitle'>{{item.add_time[1]}}/{{item.add_time[0]}}</view>
+                        </view>
+                    </view>
+                    <view class='line'></view>
+                    <image class='niceImg' data-url='{{item.thumb}}' src="{{item.thumb}}?{{num}}" data-musicUrl='{{item.music_info.url}}' data-nameMusic='{{item.music_info.name}}'
+                            mode='aspectFill' data-pw_id='{{item.id}}' bindtap='seeTap'></image>
+                </view>
+            </view> 
+            <!--2  -->
+            <view class='content'  wx:if="{{big == 2 && now==2}}">
+                  <view class='item' wx:for="{{photosList}}" wx:key="{{index}}" data-pw_id='{{item.id}}' >
+                    <view class='dels' bindtap="dels" data-pw_id='{{item.id}}' data-photoIndex='{{index}}'>
+                        <image class='dels' src="../img/dels.png" mode="widthFix"></image>
+                    </view>
+                    <view class='addTimes'>
+                        <view class='addTime'>
+                            <view class='timeBig'>{{item.day}}</view>
+                            <view class='timeTitle'>{{item.add_time[1]}}/{{item.add_time[0]}}</view>
+                        </view>
+                    </view>
+                    <view class='line'></view>
+                    <image class='niceImg' data-url='{{item.thumb}}' src="{{item.thumb}}?{{num}}" data-musicUrl='{{item.music_info.url}}' data-nameMusic='{{item.music_info.name}}'
+                            mode='aspectFill' data-pw_id='{{item.id}}' bindtap='seeTap1'></image>
+                </view>
+            </view> 
+        </block>
+    </view>
+</view>
+<!--新增  -->
+<view class='addNew'>
+    <image src='../img/addNew.png' mode='widthFix' bindtap='newPhotos'></image>
+</view>

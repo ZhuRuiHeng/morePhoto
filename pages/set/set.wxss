@@ -1,0 +1,133 @@
+/* pages/set/set.wxss */
+.text_box{
+  width: 750rpx;
+  text-align: center;
+  color: #666;
+  font-size: 26rpx;
+}
+
+.input_section{
+  width: 680rpx;
+  margin: 0 auto;
+  border-bottom: 1px solid #888;
+  font-size: 28rpx;
+  height: 90rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_section input{
+  width: 580rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #353535;
+  margin-left: 16rpx;
+  display: block;
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.input_section text{
+  font-size: 11px;
+  color: #999;
+}
+
+.btn_area{
+  margin-top: 30rpx;
+}
+
+.submit{     
+  width: 680rpx;
+  height: 60rpx;
+  color: #fff;
+  font-size: 26rpx;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  line-height: 2.55555556;
+  border-radius: 10rpx;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  background-color: #9a99ff;
+}
+
+.disabled{
+  background: #cecece;
+  color: #fff;
+}
+
+.active{
+  background: #fff175;
+  color: #333;
+}
+
+.tag_area{
+  padding: 20rpx;
+  width: 680rpx;
+  margin-top: 50rpx;
+}
+
+.tag_title{
+  box-sizing: border-box;
+  padding: 0 4rpx;
+  width: 680rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag_text{
+  color: #999;
+  font-size: 24rpx;
+}
+
+.tag_change{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag_change image{
+  width: 20rpx;
+  height: 24rpx;
+  margin-right: 15rpx;
+}
+
+.tag_change text{
+  font-size: 26rpx;
+  color: #333;
+}
+
+.tag_name{
+  margin-top: 40rpx;
+}
+
+.tag_name view{
+  display: inline-block;
+  border: 1px solid #999999;
+  height: 50rpx;
+  border-radius: 40rpx;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 50rpx;
+  padding: 0 20rpx;
+  margin-right: 36rpx;
+  margin-bottom: 30rpx;
+} 
+
+.tag_name view.back{
+  background: #9a99ff;
+  color: #fff;
+  border: 1px solid #9a99ff;
+}

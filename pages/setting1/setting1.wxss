@@ -1,0 +1,207 @@
+/* pages/setting/setting.wxss */
+.set-container {
+  border-top: 1px solid transparent;
+  background: #efeff5;
+  margin-bottom: 188rpx;
+}
+
+scroll-view {
+  display: block;
+  width: 100%;
+}
+
+.scroll {
+  margin-top: 14rpx;
+}
+
+.scroll-view{
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  max-height: inherit;
+}
+
+.peoplelist {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  padding-left: 18rpx;
+  padding-top: 18rpx;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+}
+
+.peoplelist_item {
+  width: 96rpx;
+  padding: 0 18rpx 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.peoplelist_item.bottom_line {
+  border-bottom: 1px solid #b2b2b2;
+}
+
+.peoplelist_item text {
+  display: block;
+  width: 96rpx;
+  line-height: 18rpx;
+  text-align: center;
+  font-size: 18rpx;
+  color: #333;
+  margin: 14rpx auto 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shareSet {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 1px;
+  background: #fff url('https://qncdn.playonwechat.com/gallery/add.png') no-repeat;
+  background-size: 96rpx 96rpx;
+}
+
+.peoplelist_item image {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 1px;
+}
+
+.editlist {
+  background: #fff;
+  margin-top: 14rpx;
+  width: 100%;
+}
+
+.editpic, .edittitle {
+  padding: 0 18rpx;
+  width: 750rpx;
+  box-sizing: border-box;
+  height: 80rpx;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 80rpx;
+  border-top: 1px solid #cecece;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.editpic image {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.editpic .picName {
+  width: 192rpx;
+}
+
+.editpic input {
+  width: 463rpx;
+  text-align: right;
+  color: #333;
+  font-size: 26rpx;
+}
+
+.editpic text {
+  margin-left: 8rpx;
+  width: 642rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  display: block;
+}
+
+.editpic .icon {
+  width: 12rpx;
+  height: 22rpx;
+}
+
+.editpic button {
+  width: 642rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: left;
+  padding: 0;
+  margin: 0 0 0 4px;
+  font-size: 26rpx;
+  color: #333;
+  border: 0;
+  background: #fff;
+}
+
+.editpic button:after {
+  border: none;
+}
+
+.switchBox {
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  position: relative;
+  right: -12rpx;
+}
+
+.showshare {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: rgba(0, 0, 0, 0.65);
+  background-image: url('http://oibl5dyji.bkt.clouddn.com/smallappshare.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 624rpx 412rpx; */
+}
+
+.btn {
+  padding: 0 18rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 750rpx;
+  height: 188rpx;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.btn_save {
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  background: #fff27f;
+  color: #333;
+  font-size: 26rpx;
+  margin-bottom: 18rpx
+}
+
+.btn_del {
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  background: #999;
+  color: #fff;
+  font-size: 26rpx;
+  margin-bottom: 18rpx;
+}
+
+.introtext {
+  margin-top: 14rpx;
+  width: 750rpx;
+  height: 66rpx;
+  background: #fff;
+  line-height: 66rpx;
+  text-align: center;
+  color: #999;
+  font-size: 22rpx;
+} 

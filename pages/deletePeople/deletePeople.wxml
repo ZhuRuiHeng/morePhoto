@@ -1,0 +1,13 @@
+<!--pages/deletePeople/deletePeople.wxml-->
+<view class="container">
+  <label class="checkbox" wx:for="{{members}}" wx:key="{{index}}" data-idx="{{index}}" data-mid="{{item.mid}}" bindtap='selected'>
+    <icon class="{{item.active?'select':'noselect'}}"></icon>
+    <image class="gpic" src="{{item.avatarurl}}">
+    </image>
+    <text class="name">{{item.wx_name}}</text>
+  </label>
+
+  <view class="btn">
+    <button class="delete {{str.length>0?'on':''}}" bindtap='delete'>删除</button>
+  </view>
+</view>

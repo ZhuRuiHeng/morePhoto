@@ -1,0 +1,29 @@
+<!--pages/set/set.wxml-->
+<view class='mk_container'>
+  <view class='input_section'>
+    <input type='text' placeholder='新相册名称' value="{{inputValue}}" bindinput='getValue' maxlength='8'></input>
+    <text>8</text>
+  </view>
+
+  <view class='btn_area'>
+    <form report-submit="true" bindsubmit="submitValue">
+      <button class='submit {{inputValue?"":"disabled"}}' formType="submit">确定</button>
+    </form>
+  </view>
+
+  <view class='tag_area'>
+    <view class='tag_title'>
+      <view class='tag_text'>直接选一个名称吧</view>
+      <view class='tag_change' bindtap='changeValue'>
+        <image src='../img/refresh.png'></image>
+        <text>换一批</text>
+      </view>
+    </view>
+
+    <view class='tag_name'>
+      <view class="{{item.active?'back':''}}" wx:for="{{albumNames}}" wx:key="{{index}}" data-idx="{{index}}" bindtap='createValue'>#{{item.keyword}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='text_box'>亲，重复点击标签，会更换空间名哦！</view>

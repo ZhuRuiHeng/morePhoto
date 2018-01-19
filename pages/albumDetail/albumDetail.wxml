@@ -1,0 +1,192 @@
+<!--pages/albumDetail/albumDetail.wxml-->
+<view class='v_container'>
+    <view class="scoll_top"></view>
+    <view class='to_go_home' bindtap='goHome'>
+      <image src='../img/go_home.png'></image>
+    </view>
+    <view class='header'>
+      <view class='top_data'>
+        <image mode='aspectFill' class='view_scoll_bg_img' src='{{album.cover}}' catchtap='changeCover'></image>
+        <navigator class='setting' url="../setting1/setting1?aid={{album.aid}}&mid={{album.mid}}">
+          <image src='../img/setting1.png'></image>
+        </navigator>
+
+        <view class='memberlist'>
+          <view class='scoll_group_name'>{{album.album_name}}</view>
+          <view class='more_member'>
+            <image src='../img/people.png'></image>
+            <text>{{album.member_ids}}</text>
+            <image src='../img/picture.png'></image>
+            <text>{{album.countPicture}}</text>
+          </view>
+          <button class='share_btn' open-type='share'></button>
+        </view>
+      </view>
+    </view>
+    <view class='timeline_nav'>
+      <view class='nav-item {{tab==1?"active":""}}' data-tab="1" bindtap='changeTab'>
+        <view class='textBox'>时间轴</view>
+      </view>
+      <view class='nav-item {{tab==2?"active":""}}' data-tab="2" bindtap="changeTab">
+        <view class='textBox'>照片墙</view>
+      </view>
+    </view>
+    <!-- 照片墙，按时间排序 -->
+    <view class='photoageitem margTop' wx:if="{{tab==2&&pictureList.length!=0}}">
+      <image src='../img/date2.png' class='icon' bindtap='changeType'  wx:if="{{type==0}}"></image>
+      <image src='../img/people2.png' class='icon' bindtap='changeType' wx:else></image>
+
+      <view wx:for="{{pictureList}}" wx:if="{{type==0}}">
+        <view class='timetitle'>
+          <image src='../img/date.png' class='date'></image>
+          <text>{{item.add_date}}</text>
+          
+        </view>
+        <view class='photopageimgbox' wx:for="{{item.pictures}}" wx:for-item="picture">
+          <image src='{{picture}}' mode="aspectFill"  data-pictures="{{item.pictures}}" data-picture="{{picture}}" catchtap='previewImg'></image>
+        </view>
+      </view>
+
+      <!-- 照片墙，按人排序 -->
+      <view class='list-item' wx:for="{{pictureList}}" wx:key="{{index}}" wx:if="{{type==1}}">
+        <view class='list-item-child'>
+          <view class='childTop'>
+            <image src='{{item.avatarurl}}' class='item_headerpic' mode='aspectFill'></image>
+            <view class="item_userDate">
+              <view class='item_userName'>{{item.wx_name}}</view>
+              <view class='uptimebox'>
+                
+                <view class='uptime'>{{item.add_time}}</view>
+              </view>
+            </view>
+          </view>
+          <view class='mainImg'>
+            <view wx:for="{{item.pictures}}" wx:for-item="picture" class='subimg'>
+              <image src='{{picture}}' mode="aspectFill"  data-pictures="{{item.pictures}}" data-picture="{{picture}}" catchtap='previewImg'></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view> 
+    <!-- 发布动态部分 -->
+    <view class='timeline' wx:if="{{tab==1&&timeLine.length!=0}}">
+      <view class='list-item' wx:for="{{timeLine}}" wx:key="{{index}}" catchtap='toDetail' data-did="{{item.did}}">
+        <view class='list-item-child'>
+          <view class='childTop'>
+            <image src='{{item.avatarurl}}' class='item_headerpic' mode='aspectFill'></image>
+            <view class="item_userDate">
+              <view class='item_userName'>{{item.wx_name}}</view>
+              <view class='uptimebox'>
+                <view class='set_top' wx:if="{{item.stick_time>0}}">置顶</view>
+                <view class='uptime'>{{item.add_time}}</view>
+              </view>
+            </view>
+          </view>
+          <view class='mainImg'>
+            <view wx:for="{{item.pictures}}" wx:for-item="picture"  wx:key="{{index}}"
+                class='subimg {{item.pictures.length==1?"onesubimg":item.pictures.length==2?"twosubimg":""}}'>
+              <image src='{{picture}}' mode="aspectFill" data-pictures="{{item.pictures}}" data-picture="{{picture}}" catchtap='previewImg'></image>
+            </view>
+          </view>
+        </view>
+
+        <view class='desc'>{{item.description}}</view>
+
+        <view class='listDetailBox'>
+          <view class='likebox'>
+            <view wx:if="{{item.avatarurls.length!=0}}">
+              <view class="totalLike">{{item.avatarurls.length}}</view>
+            </view>
+            <view class='funLikeBox'>
+              <button catchtap='saveThumb' data-did="{{item.did}}" data-idx="{{index}}">
+                <image src='../img/zan.png' class='likeImg' wx:if="{{item.is_thumb == 0}}"></image>
+                <image src='../img/zan_hover.png' class='likeImg' wx:else></image>
+              </button>
+
+              <view class='moreFun' data-idx="{{index}}" catchtap='showAction'>
+                <image src='../img/more2.png' class='clickImg'></image>
+              </view>
+            </view>
+
+            <scroll-view scroll-x="true" class="likeScoll" wx:if="{{item.avatarurls.length!=0}}">
+              <view class="likeListBox">
+                <view class="likelist_item" wx:for="{{item.avatarurls}}"  wx:key="{{index}}">
+                  <image mode="aspectFill" src="{{item.avatarurl}}"></image>
+                </view>
+              </view>
+            </scroll-view>
+
+          </view>
+
+          <view class="talkbox">
+            <view class="comment" wx:for="{{item.comments}}"  wx:key="{{index}}">
+              <text class="commentuser"> {{item.wx_name}}：</text>
+              <text class="commentcontent">{{item.content}}</text>
+            </view>
+          </view>
+
+          <view class='icon_commit' catchtap='toText' data-did="{{item.did}}">
+            <image src='../img/edit2.png'></image>
+            <text>说点什么吧...</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='noitem' wx:if="{{timeLine.length==0}}">
+      <image src='../img/noitem.png' class='hidupload'></image>    
+    </view>
+    <view class='btm_prompt'>
+      <image src='../img/bottom.png'></image>
+    </view>
+  </view>
+  <view class='upLoad_old' bindtap='showImg'>
+    <image src='../img/addNew.png'></image>
+  </view>
+
+  <view class='pvModel' wx:if="{{showImg}}" catchtap='closeImg'>
+    <view class='pvModel_box'>
+      <view class="pvModel-main">
+        <view class="mainItem" data-pic="pai" catchtap='addImg'>
+          <text>拍照片</text>
+        </view>
+        <view class="mainItem" data-pic="phone" catchtap='addImg' style="margin-bottom:7px;">
+          <text>相册照片</text>
+        </view>
+        <view class="mainItem" catchtap='closeImg'>
+          <image src="../img/close.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="funModel" wx:if="{{showAction}}" catchtap='closeImg'>
+    <view class="funModel_box">
+      <view class="funModel-main">
+        <view class="mainList">
+          <view class="funMainItem" wx:if="{{album.mid==localMid&&currentDynamic.stick_time>0}}" bindtap='cancelTop'>
+            <image src="../img/cancel_top.png"></image>
+            <text>取消置顶</text>
+          </view>
+          <view class="funMainItem" wx:elif="{{album.mid==localMid}}" bindtap='setTop'>
+            <image src="../img/cancel_top.png" class='imgRotate'></image>
+            <text>置顶</text>
+          </view>
+          <view class="funMainItem" wx:if="{{currentDynamic.mid==localMid}}" bindtap='deleteDynamic'>
+            <image src="../img/delete.png"></image>
+            <text>删除</text>
+          </view>
+          <view class="funMainItem">
+            <button open-type="share" class="detailShare"></button>
+            <text>分享</text>
+          </view>
+        </view>
+        <view class="closeList" style="margin-top:7px;">
+          <image src="../img/close.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+

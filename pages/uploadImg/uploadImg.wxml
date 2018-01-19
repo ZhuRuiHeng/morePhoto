@@ -1,0 +1,28 @@
+<!--pages/uploadImg/uploadImg.wxml-->
+<view class='container'>
+    <view class='section'>
+        <view class='main-section'>
+          <view class='textIcon'>
+            <image src='../img/edit.png'></image>        
+          </view>
+          <textarea placeholder='留下美好回忆' bindinput='getDesc'></textarea>
+        </view>
+        <view class='subbtn' bindtap='startUpload'>
+          <button class='hasPic'>开始上传</button>
+        </view>
+    </view>
+
+    <view class='subpic'>
+        <view class='picitem add' bindtap='continueAdd'>
+            <view class='addicon'>
+              <image src='../img/add2.png' mode="aspectFill"></image>        
+            </view>
+        </view>
+        <view class='picitem' wx:for="{{imgArr}}" wx:key="{{index}}">
+            <view class='addicon'>
+              <image src='{{item}}' mode="aspectFill"></image>
+              <view class='delete' data-idx="{{index}}" bindtap='deleteImg'></view>
+            </view>
+        </view>
+    </view>
+</view>

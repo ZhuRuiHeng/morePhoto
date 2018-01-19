@@ -1,0 +1,59 @@
+<!--pages/setting/setting.wxml-->
+<view class="set-container">
+  <scroll-view scroll-y="" class="scroll" style="max-height:158px">
+    <div class="wx-scroll-view">
+      <div style="overflow-x: hidden; overflow-y: auto;" class="wx-scroll-view">
+        <div style="height: 100%;">
+          <view class="peoplelist">
+            <view class="peoplelist_item ">
+              <button open-type="share" class="shareSet"></button>
+              <text>添加成员</text>
+            </view>
+            <view class="peoplelist_item " wx:for="{{members}}" wx:key="{{index}}">
+              <image mode="aspectFill" src="{{item.avatarurl}}"> </image>
+              <text>{{item.wx_name}}</text>
+            </view>
+            <view class="peoplelist_item" bindtap="toDeletePeople">
+              <image src="../img/deleteMember.png"></image>
+            </view>
+          </view>
+        </div>
+      </div>
+    </div>
+  </scroll-view>
+
+
+      <view class="editlist">
+        <view class="editpic" style="border:0;">
+          <image src="../img/name.png"></image>
+          <text class="picName">相册名称</text>
+          <input maxlength="8" name="grouptitle" placeholder="{{album_name}}" value="{{album_name}}" bindtap='getName'></input>
+        </view>
+
+        <view class="editpic" bindtap='changeCover'>
+          <image src="../img/cover.png"></image>
+          <text>相册封面 </text>
+          <image src='../img/arrow.png' class='icon'></image>
+        </view>
+        <!-- <view class="editpic">
+          <image src="../img/member.png"></image>
+          <text>谁可以添加照片</text>
+          <image src='../img/arrow.png' class='icon'></image>
+        </view> -->
+      </view>
+      <!-- <view class="editlist">
+        <view class="editpic">
+          <image src="../img/service.png"></image>
+          <button plain="" open-type="contact">在线客服</button>
+          <image src='../img/arrow.png' class='icon'></image>
+        </view>
+      </view> -->
+      <view class="btn" wx:if="{{currentMid == mid}}">
+        <button class="btn_save" bindtap='saveSetting'>保存设置</button>
+        <button size="default" class="btn_del" bindtap='deleteAlbum'>删除相册</button>
+      </view>
+
+      <view class="btn" wx:else bindtap='exitAlbum'>
+        <button size="default" class="btn_del">退出相册</button>
+      </view>
+</view>

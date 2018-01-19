@@ -1,0 +1,7 @@
+<!--pages/comment/comment.wxml-->
+<view class='comment_wrap'>
+  <image src='../img/edit.png'></image>
+  <view class='publish {{text?"":"disabled"}}' bindtap='publishText'>发表</view>
+</view>
+
+<textarea class='text' bindinput='getText'></textarea>

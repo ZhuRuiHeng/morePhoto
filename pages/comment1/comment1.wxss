@@ -1,0 +1,39 @@
+/* pages/comment/comment.wxss */
+.comment_wrap{
+  width: 700rpx;
+  margin: 20rpx auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment_wrap image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.publish{
+  width: 150rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  color: #fff;
+  background: #9a99ff;
+  text-align: center;
+  line-height: 50rpx;
+  border-radius: 10rpx;
+}
+
+.disabled{
+  color: #333;
+  background: #efeff5;
+}
+
+.text{
+  width: 700rpx;
+  margin: 20rpx auto 0;
+  height: 400rpx;
+  background: #efeff5;
+  padding: 20rpx;
+  box-sizing: border-box;
+  color: #333;
+}
