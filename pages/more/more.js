@@ -63,6 +63,9 @@ Page({
       success(res) {
         // 打开成功
         console.log(res);
+      },
+      fail(res){
+        console.log(res);
       }
     })
     wx.hideLoading()

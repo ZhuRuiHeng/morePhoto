@@ -48,3 +48,7 @@
         <image src="http://p1jrmxejh.bkt.clouddn.com/photo/red-pack-bg.png" mode='widthFix' bindtap='jump'></image>
     </view>
 </view>
+<!--禾葡兰  -->
+<view class='gif' bindtap='redUrl'>
+    <image src="http://p1jrmxejh.bkt.clouddn.com/photo/hepulan.gif" mode='widthFix'></image>
+</view>

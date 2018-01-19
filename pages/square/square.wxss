@@ -402,3 +402,16 @@ button::after{
   background: #fff!important;
   color: #626226!important;
 }
+.zindex{
+  position: fixed;
+  right: 20rpx;
+  top: 30%;  
+  -webkit-transform: translateY(-50%,-50%);  
+  -ms-transform: translatYe(-50%,-50%);  
+  transform: translateY(-50%,-50%);  
+  z-index: 99;
+}
+.zindex image{
+  width: 140rpx;
+  height: 140rpx;
+}

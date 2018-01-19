@@ -198,6 +198,17 @@ Page({
       })
     }
   },
-
+  // 领红包
+  redUrl() {
+    wx.navigateToMiniProgram({
+      appId: 'wx22c7c27ae08bb935',
+      path: 'pages/index/index',
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+        console.log(res);
+      }
+    })
+  },
 })
  

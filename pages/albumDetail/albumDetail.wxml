@@ -98,10 +98,10 @@
               <view class="totalLike">{{item.avatarurls.length}}</view>
             </view>
             <view class='funLikeBox'>
-              <button catchtap='saveThumb' data-did="{{item.did}}" data-idx="{{index}}">
+              <!-- <button catchtap='saveThumb' data-did="{{item.did}}" data-idx="{{index}}">
                 <image src='../img/zan.png' class='likeImg' wx:if="{{item.is_thumb == 0}}"></image>
                 <image src='../img/zan_hover.png' class='likeImg' wx:else></image>
-              </button>
+              </button> -->
 
               <view class='moreFun' data-idx="{{index}}" catchtap='showAction'>
                 <image src='../img/more2.png' class='clickImg'></image>

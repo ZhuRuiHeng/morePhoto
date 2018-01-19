@@ -15,9 +15,10 @@ Page({
     finish:true,
     num: Math.random(),
     win:false,
-    join:true
+    join:true,
   },
   onLoad: function (options) {
+    
     //wx.removeStorageSync('activity')
     let that = this;
     // 活动信息
@@ -100,6 +101,7 @@ Page({
     })
   },
   onShow: function () {
+    
     console.log(wx.getStorageSync('activity'));
     wx.showToast({
       title: '加载中',
@@ -192,6 +194,11 @@ Page({
       type: e.currentTarget.dataset.type,
       page: 1
     })
+    if (e.currentTarget.dataset.type =='activity'){
+      that.setData({
+        join: false
+      })    
+    }
     // list
     wx.request({
       url: app.data.apiurl2 + "photo/photo-circle?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -406,6 +413,18 @@ Page({
       wx.navigateTo({
         url: '../rules/rules?thumb=' + this.data.thumb
       })
+  },
+  // 领红包
+  redUrl() {
+    wx.navigateToMiniProgram({
+      appId: 'wx22c7c27ae08bb935',
+      path: 'pages/index/index',
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+        console.log(res);
+      }
+    })
   },
   shanchu(e){
     console.log(e);

@@ -415,7 +415,7 @@ form .button-hover{
 .listBox .icon{
     background:#fff url(http://p1jrmxejh.bkt.clouddn.com/photo/icon4.png) no-repeat center right;
     background-size: 50rpx;
-    padding: 20rpx;
+    padding: 26rpx 20rpx;
     border-bottom: 1px solid #f7f7f7;
 }
 .listBox .icon text{
@@ -468,4 +468,17 @@ button.icon{
   width: 46rpx;
   height: 46rpx;
   cursor: pointer;
+}
+.gif{
+  position: fixed;
+  right: 20rpx;
+  top: 30%;  
+  -webkit-transform: translateY(-50%,-50%);  
+  -ms-transform: translatYe(-50%,-50%);  
+  transform: translateY(-50%,-50%);  
+  z-index: 99;
+}
+.gif image{
+  width: 140rpx;
+  height: 140rpx;
 }

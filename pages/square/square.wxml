@@ -75,3 +75,7 @@
           <button class='inGroup' bindtap='chart'>立即领取</button> 
     </view> 
 </view>
+<!--禾葡兰  -->
+<view class='gif zindex' bindtap='redUrl'>
+    <image src="http://p1jrmxejh.bkt.clouddn.com/photo/hepulan.gif" mode='widthFix'></image>
+</view>

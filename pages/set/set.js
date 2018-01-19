@@ -47,7 +47,17 @@ Page({
       }
     })
   },
-
+  hepulan(){
+    wx.navigateToMiniProgram({
+      appId: 'wx22c7c27ae08bb935',
+      path: 'pages/index/index',
+      envVersion: 'release',
+      success(res) {
+        // 打开成功
+        console.log(res);
+      }
+    })
+  },
   // 选名称
   createValue(e){
     var that = this;

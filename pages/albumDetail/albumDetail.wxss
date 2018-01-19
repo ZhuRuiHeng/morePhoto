@@ -145,9 +145,9 @@
   position: absolute;
   bottom: 20rpx;
   right: 18rpx;
-  width: 158rpx;
-  height: 52rpx;
-  border-radius: 2rpx;
+  width: 180rpx;
+  height: 62rpx;
+  border-radius: 16rpx;
   background: url(http://p1jrmxejh.bkt.clouddn.com/photo/11.png) no-repeat;
   background-size: 100% 100%;
 }
@@ -574,7 +574,7 @@
 }
 
 .margTop{
-  margin-top: 84rpx;
+  margin-top: 44rpx;
 }
 
 .photoageitem {

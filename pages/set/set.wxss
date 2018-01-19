@@ -131,3 +131,15 @@
   color: #fff;
   border: 1px solid #9a99ff;
 }
+.cover{
+  margin-top: 80rpx;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+.cover image{
+  width: 96%;
+  height: 200rpx;
+  margin: 0 auto;
+  vertical-align: middle;
+}

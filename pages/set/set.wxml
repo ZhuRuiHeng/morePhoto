@@ -27,3 +27,6 @@
 </view>
 
 <view class='text_box'>亲，重复点击标签，会更换空间名哦！</view>
+<view class='cover' bindtap='hepulan'>
+    <image src="http://p1jrmxejh.bkt.clouddn.com/moqi/hepulannv.png" mode='widthFix'></image>
+</view>
