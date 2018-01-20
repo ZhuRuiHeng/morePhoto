@@ -110,15 +110,15 @@ App({
                   },
                   fail: function () {
                     console.log("用户拒绝授权");
-                    wx.showModal({
-                      title: '警告',
-                      content: '您点击了拒绝授权，将无法正常使用体验。请10分钟后再次点击授权，或者删除小程序重新进入。',
-                      success: function (res) {
-                        if (res.confirm) {
-                          console.log('用户点击确定');
-                        }
-                      }
-                    })
+                    // wx.showModal({
+                    //   title: '警告',
+                    //   content: '您点击了拒绝授权，将无法正常使用体验。请10分钟后再次点击授权，或者删除小程序重新进入。',
+                    //   success: function (res) {
+                    //     if (res.confirm) {
+                    //       console.log('用户点击确定');
+                    //     }
+                    //   }
+                    // })
                     wx.openSetting({
                       success: (res) => {
                         console.log(res);

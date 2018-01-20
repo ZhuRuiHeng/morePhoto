@@ -101,9 +101,12 @@ Page({
                           wx.hideLoading();
                           console.log(res);
                           if (res.data.status) {
-                            wx.redirectTo({
-                              url: '../albumDetail/albumDetail?aid=' + res.data.aid,
+                            wx.navigateBack({
+                              delta: 1,
                             })
+                            // wx.redirectTo({
+                            //   url: '../albumDetail/albumDetail?aid=' + res.data.aid,
+                            // })
                           }
                         }
                       })

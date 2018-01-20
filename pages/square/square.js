@@ -17,7 +17,7 @@ Page({
     win:false,
     join:true,
     zanTap1: false,
-    gif:'../img/love.gif'
+    gif: 'http://ovhvevt35.bkt.clouddn.com/photo/love.gif?' + Math.random()
   },
   onLoad: function (options) {
     

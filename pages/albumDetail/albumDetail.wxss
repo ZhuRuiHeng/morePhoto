@@ -147,7 +147,7 @@
   right: 18rpx;
   width: 180rpx;
   height: 62rpx;
-  border-radius: 16rpx;
+  border-radius: 30rpx;
   background: url(http://p1jrmxejh.bkt.clouddn.com/photo/11.png) no-repeat;
   background-size: 100% 100%;
 }
