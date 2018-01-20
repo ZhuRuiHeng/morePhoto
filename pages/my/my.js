@@ -189,6 +189,7 @@ Page({
   bindPlay() {
     var that = this;
     let music_play = that.data.music_play;
+    console.log(app.data.dataUrl);
     if (music_play == true) {
       console.log(1);
       wx.pauseBackgroundAudio();//暂停

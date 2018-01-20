@@ -26,19 +26,7 @@ Page({
     // 活动信息
     app.getAuth(function () {
       // 测试
-      wx.request({
-        url: "https://gallery.playonwechat.com/napi/get-gallery-sign?openid=" + wx.getStorageSync('openid') + "&operator_id=" + app.data.kid,
-        success: function (res) {
-          console.log("忆年sign", res);
-          if (res.data.status) {
-            var otherSign = res.data.sign;
-            wx.getStorageSync('otherSign', otherSign);
-            that.setData({
-              otherSign: otherSign
-            })
-          }
-        }
-      })
+      console.log(app.data.apiurl3 + "photo/activity-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid)
         wx.request({
           url: app.data.apiurl3 + "photo/activity-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
           header: {
@@ -59,9 +47,9 @@ Page({
               wx.setStorageSync('win', res.data.data.win);
               // 如果缓存win是true,则不弹  未参与活动每次都弹
               if (wx.getStorageSync('win') == true) {
-                that.setData({
-                  win: false
-                })
+                // that.setData({
+                //   win: false
+                // })
               }
               wx.hideLoading()
             } else {
@@ -196,11 +184,46 @@ Page({
       type: e.currentTarget.dataset.type,
       page: 1
     })
-    if (e.currentTarget.dataset.type =='activity'){
-      that.setData({
-        join: false
-      })    
+    
+    console.log(e.currentTarget.dataset.type, 111, that.data.win)
+    if (e.currentTarget.dataset.type == 'activity') {
+      wx.request({
+        url: app.data.apiurl3 + "photo/activity-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("活动信息:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            that.setData({
+              activeInform: res.data.data,
+              thumb: res.data.data.activity_info.thumb + '?' + that.data.num,
+              join: res.data.data.join,
+              win: res.data.data.win
+            })
+            wx.setStorageSync('join', res.data.data.join);
+            wx.setStorageSync('win', res.data.data.win);
+            // 如果缓存win是true,则不弹  未参与活动每次都弹
+            if (wx.getStorageSync('win') == true) {
+            }
+            if (that.data.win == true) {
+
+            } else {
+              that.setData({
+                join: false
+              })
+            }
+            wx.hideLoading()
+          } else {
+            //tips.alert(res.data.msg);
+          }
+        }
+      })
+     
     }
+
     // list
     wx.request({
       url: app.data.apiurl2 + "photo/photo-circle?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -324,8 +347,12 @@ Page({
   // 关闭弹窗
   activeClose(){
     this.setData({
-      join:true,
-      win:false
+      join:true
+    })
+  },
+  activeClose1(){
+    this.setData({
+      win: false
     })
   },
   // 参与活动

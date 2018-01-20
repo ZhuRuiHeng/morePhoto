@@ -72,7 +72,7 @@
 <view class='bg' wx:if="{{win==true}}"  > 
     <view class='activity'   
           style='background: url(http://ovhvevt35.bkt.clouddn.com/photo/card.png?{{num}}) no-repeat;background-size: cover;'> 
-          <view class='activityClose' bindtap='activeClose' > 
+          <view class='activityClose' bindtap='activeClose1' > 
               <image src="../img/error.png" mode='widthFix'></image> 
           </view>
           <button class='inGroup' bindtap='chart'>立即领取</button> 
