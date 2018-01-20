@@ -24,7 +24,23 @@ export default class Tips {
             });
         }
     }
+// 爱心+1
 
+    static love(title, duration = 500) {
+      wx.showToast({
+        title: title,
+        icon: 'http://p1jrmxejh.bkt.clouddn.com/photo/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180120102346.png',
+        mask: true,
+        duration: duration
+      })
+      if (duration > 0) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve();
+          }, duration);
+        });
+      }
+    }
     /**
      * 弹出确认窗口
      */

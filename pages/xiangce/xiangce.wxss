@@ -616,7 +616,7 @@ button.icon{
 }
 
 .grouplist_container {
-  padding-bottom: 78rpx;
+  margin-bottom: 78rpx;
   background: #fff;
   margin-top: 20rpx;
 }
@@ -653,7 +653,7 @@ button.icon{
   vertical-align: bottom;
 }
 .groupname {
-  font-size: 32rpx;
+  font-size: 38rpx;
   font-weight: 500;
   color: #fff;
 }
@@ -688,7 +688,7 @@ button.icon{
   background: red;
 }
 .groupdes {
-  font-size: 22rpx;
+  font-size: 28rpx;
   line-height: 22rpx;
   color: #fff;
   margin-top: 12rpx;
@@ -698,10 +698,10 @@ button.icon{
   line-height: 24rpx;
 }
 .line {
-  display: block;
+  /* display: block;
   background: #fff;
   width: 1px;
-  height: 54rpx;
+  height: 54rpx; */
 }
 .navter {
   padding: 0;
@@ -768,12 +768,12 @@ button.icon{
   align-items: center;
 }
 .member-img {
-  width: 24rpx;
-  height: 24rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 .picture-img {
-  width: 24rpx;
-  height: 24rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 .username {
   font-size: 28rpx;

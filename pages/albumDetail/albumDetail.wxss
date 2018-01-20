@@ -178,10 +178,10 @@
 .upLoad_old {
   position: fixed;
   bottom: 24rpx;
-  right: 304rpx;
+  right: 330rpx;
   z-index: 999;
-  width: 110rpx;
-  height: 110rpx;
+  width: 90rpx;
+  height: 90rpx;
 }
 
 .upLoad_old image {

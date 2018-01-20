@@ -16,6 +16,8 @@ Page({
     num: Math.random(),
     win:false,
     join:true,
+    zanTap1: false,
+    gif:'../img/love.gif'
   },
   onLoad: function (options) {
     
@@ -267,6 +269,7 @@ Page({
   zanTap(e){
     let that = this;
     let zanIndex = e.currentTarget.dataset.index;
+    let object_id = e.currentTarget.dataset.object_id
     let allList = that.data.allList;
     wx.request({
       url: app.data.apiurl2 + "photo/thumb?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -290,7 +293,14 @@ Page({
                 allList[zanIndex].thumb_count = thumb_count + 1
               }
             }
-            tips.success('点赞成功！')
+            that.setData({
+              zanTap1: object_id
+            })
+            setTimeout(function () {
+              that.setData({
+                zanTap1: false
+              })
+            }, 1000)
           }else{
               tips.alert('点过赞了哦！')
           }
@@ -301,6 +311,7 @@ Page({
         } else {
           tips.alert(res.data.msg);
         }
+        
         
       }
     })
@@ -319,14 +330,21 @@ Page({
   },
   // 参与活动
   activeIn(e){
-      this.setData({
+     let that = this;
+      that.setData({
         join: false
       })
       wx.setStorageSync('cate_id', 26);
       wx.setStorageSync('nowImage', 1);
       wx.setStorageSync('nowTitle', '节日活动');
       wx.navigateTo({
-        url: '../moban/moban'
+        url: '../moban/moban?cate_id=26&nowTitle=节日活动&nowImage=1',
+        success: function (e){
+          console.log(e);
+          that.setData({
+            join: true
+          })
+        }
       })
   },
     //设置分享

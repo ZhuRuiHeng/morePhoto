@@ -49,7 +49,7 @@ Page({
     wx.setStorageSync('nowImage', 1);
     wx.setStorageSync('nowTitle', '节日活动')
     wx.navigateTo({
-      url: '../moban/moban'
+      url: '../moban/moban?cate_id=26&nowTitle=节日活动&nowImage=1'
     })
   }
 

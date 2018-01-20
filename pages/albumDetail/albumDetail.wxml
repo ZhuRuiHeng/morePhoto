@@ -139,7 +139,7 @@
       <image src='../img/bottom.png'></image>
     </view>
   </view>
-  <view class='upLoad_old' bindtap='showImg'>
+  <view class='upLoad_old' bindtap='addImg'>
     <image src='../img/addNew.png'></image>
   </view>
 

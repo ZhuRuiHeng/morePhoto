@@ -1,4 +1,4 @@
-<view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view> 
+<!-- <view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view>  -->
 <view class="container">
     <view class='top'>
         <!--parent-->
@@ -14,7 +14,7 @@
         </view> 
         <!--child -->
         <!-- 忆年列表 -->
-        <view class="grouplist_container" wx:if="{{big==1}}">
+        <view class="grouplist_container" wx:if="{{big==1 && albums}}">
             <view class="grouplist_item" wx:for="{{albums}}" wx:key="{{index}}">
                 <navigator hover-class="none" class="navter" url="../albumDetail/albumDetail?aid={{item.aid}}">
                   <image mode="aspectFill" class="groupimg" src="{{item.cover}}"></image>
@@ -84,6 +84,9 @@
                             mode='aspectFill' data-pw_id='{{item.id}}' bindtap='seeTap1'></image>
                 </view>
             </view> 
+        </block>
+        <block wx:if="{{albums.length < 1 || !photosList || !albums}}">
+            <view style="text-align:center;font-size:24rpx;padding:30rpx;margin-top:90rpx"> 您还未创建相册！ </view>
         </block>
     </view>
 </view>

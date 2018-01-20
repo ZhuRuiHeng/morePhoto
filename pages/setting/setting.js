@@ -1,6 +1,6 @@
 const app = getApp()
 const apiurl = 'https://friend-guess.playonwechat.com/';
-let sign = wx.getStorageSync('otherSign');
+let sign = wx.getStorageSync('sign');
 import tips from '../../utils/tips.js'
 Page({
   data: {
@@ -17,7 +17,7 @@ Page({
       icon: 'loading'
     })
     let that = this;
-    let sign = wx.getStorageSync('otherSign');
+    let sign = wx.getStorageSync('sign');
     // 请求
     wx.request({
       url: apiurl + "photo/manage-photo-wall?sign=" + sign + '&operator_id=' + app.data.kid,

@@ -60,20 +60,20 @@ Page({
   },
   //13
   onLoad: function (options) {
-    
+    console.log("options:", options);
+    if (options.cate_id){
+      this.setData({
+        cate_id: options.cate_id,
+        nowImage: options.nowImage,
+        nowTitle: options.nowTitle,
+      })
+    }
   },
   onShow: function () {
     wx.showToast({
       title: '加载中',
       icon: 'loading'
     })
-    if (wx.getStorageSync('cate_id')) {
-      this.setData({
-        cate_id: wx.getStorageSync('cate_id'),
-        nowImage: wx.getStorageSync('nowImage'),
-        nowTitle: wx.getStorageSync('nowTitle', )
-      })
-    }
     if (wx.getStorageSync('type')) {
       this.setData({
         type: wx.getStorageSync('type')

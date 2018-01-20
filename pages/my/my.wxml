@@ -41,6 +41,9 @@
             <text>更多好玩</text>
         </view>
     </view>
+    <view class='cover' bindtap='hepulan'>
+        <image src="http://ovhvevt35.bkt.clouddn.com/moqi/hepulanb.png" mode='widthFix'></image>
+    </view>
 </view>
 <view class='background' wx:if='{{zindex}}'>
     <view class='zindex'>
@@ -50,5 +53,7 @@
 </view>
 <!--禾葡兰  -->
 <view class='gif' bindtap='redUrl'>
-    <image src="http://p1jrmxejh.bkt.clouddn.com/photo/hepulan.gif" mode='widthFix'></image>
+    <image src="../img/honbao.gif" mode='widthFix'></image>
 </view>
+
+

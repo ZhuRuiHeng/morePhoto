@@ -14,7 +14,7 @@
         {{item.cate_name}}</view>
     </view> -->
     <view class='nowTitle'>
-        {{nowTitle}}<image src="../img/{{nowImage+1}}a.png" mode='widthFix'></image>
+        {{nowTitle}}<image src="../img/{{nowImage*1+1}}a.png" mode='widthFix'></image>
     </view>
     <view class='photo common'>
         <block wx:if="{{photoList.length>0}}">

@@ -18,7 +18,6 @@ Page({
   onLoad: function (options) {
     var aid = options.aid;
     var mid = options.mid;   //分享进来，获取mid
-
     console.log(mid);
     this.setData({
       aid,

@@ -160,7 +160,7 @@ Page({
         console.log(res);
         if (res.data.status) {
           wx.reLaunch({
-            url: '../album/album',
+            url: '../xiangce/xiangce',
           })
         } else {
           wx.showToast({
@@ -175,7 +175,7 @@ Page({
   // 删除相册
   deleteAlbum(){
     var that = this;
-    var sign = wx.getStorageSync("sign");
+    var sign = wx.getStorageSync("otherSign");
     var operator_id = wx.getStorageSync("operator_id");
     var aid = that.data.aid;
 
@@ -191,7 +191,7 @@ Page({
             title: '删除成功',
           })
           wx.reLaunch({
-            url: '../album/album',
+            url: '../xiangce/xiangce',
           })
         } else {
           wx.showToast({

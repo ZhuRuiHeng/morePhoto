@@ -55,7 +55,7 @@ Page({
       title: '加载中',
     });
     let appId = e.currentTarget.dataset.appid;
-    //console.log(appId);
+    console.log(appId);
     wx.navigateToMiniProgram({
       appId: appId,
       path: 'pages/index/index',
