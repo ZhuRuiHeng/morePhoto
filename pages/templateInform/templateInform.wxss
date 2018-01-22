@@ -265,3 +265,63 @@ form.active button.button-hover{
   background: #ff999a!important;
   color: #fff;
 }
+.box{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.tab{
+  /* background:rgba(0, 0, 0, 0.1); */
+  width: 120rpx;
+  height: 214rpx;
+  position: absolute;
+}
+.tab0{
+  top: 22rpx;
+  left: 63rpx;
+}
+.tab1{
+  top: 22rpx;
+  left: 183rpx;
+}
+.tab2{
+  top: 22rpx;
+  left: 322rpx;
+}
+.tab3{
+  top: 22rpx;
+  left: 444rpx;
+}
+.tab4{
+  top: 22rpx;
+  left: 574rpx;
+}
+.tab5{
+  top: 242rpx;
+  left: 63rpx;
+}
+.tab6{
+  top: 242rpx;
+  left: 183rpx;
+}
+.tab7{
+  top: 242rpx;
+  left: 322rpx;
+}
+.tab8{
+  top: 242rpx;
+  left: 444rpx;
+}
+.tab9{
+  top: 242rpx;
+  left: 574rpx;
+}
+.tab10{
+  top: 467rpx;
+  left: 443rpx;
+}
+.tab11{
+  top: 467rpx;
+  left: 574rpx;
+}
