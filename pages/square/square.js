@@ -93,10 +93,6 @@ Page({
   onShow: function () {
     
     console.log(wx.getStorageSync('activity'));
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
     let that = this;
     that.setData({
       show: false,

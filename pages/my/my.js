@@ -20,9 +20,7 @@ Page({
     })
   },
   onShow: function () {
-    wx.showLoading({
-      title: '加载中',
-    })
+    
     let that = this;
     let sign = wx.getStorageSync('sign');
     that.setData({

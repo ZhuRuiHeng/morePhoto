@@ -9,10 +9,7 @@ Page({
     
   },
   onShow: function () {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
+    
   },
   //设置分享
   onShareAppMessage: function (e) {
