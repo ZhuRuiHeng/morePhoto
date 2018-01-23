@@ -160,9 +160,10 @@ Page({
   },
   // 联系客服
   chart() {
+    console.log()
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/photoWall/photoWall?poster=http://ovhvevt35.bkt.clouddn.com/photo/poster.png&photowall=1',
+      path: 'pages/photoWall/photoWall?scene=1587798624178b412c78a43dd4877ab6&poster=http://ovhvevt35.bkt.clouddn.com/photo/poster.png&photowall=1',
       envVersion: 'release',
       success(res) {
         // 打开成功
@@ -455,7 +456,7 @@ Page({
   redUrl() {
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/index/index',
+      path: 'pages/index/index?scene=1587798624178b412c78a43dd4877ab6',
       envVersion: 'release',
       success(res) {
         // 打开成功

@@ -77,7 +77,7 @@ Page({
   hepulan() {
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/index/index',
+      path: 'pages/index/index?scene=1587798624178b412c78a43dd4877ab6',
       envVersion: 'release',
       success(res) {
         // 打开成功
@@ -110,7 +110,7 @@ Page({
     //console.log(appId);
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/index/index',
+      path: 'pages/index/index?scene=1587798624178b412c78a43dd4877ab6',
       envVersion: 'release',
       success(res) {
         // 打开成功
@@ -212,7 +212,7 @@ Page({
   redUrl() {
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/index/index',
+      path: 'pages/index/index?scene=1587798624178b412c78a43dd4877ab6',
       envVersion: 'release',
       success(res) {
         // 打开成功
