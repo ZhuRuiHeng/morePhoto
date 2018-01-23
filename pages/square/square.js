@@ -162,7 +162,7 @@ Page({
   chart() {
     wx.navigateToMiniProgram({
       appId: 'wx22c7c27ae08bb935',
-      path: 'pages/photoWall/photoWall?poster=http://ovhvevt35.bkt.clouddn.com/photo/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180105171204.png&photowall=1',
+      path: 'pages/photoWall/photoWall?poster=http://ovhvevt35.bkt.clouddn.com/photo/poster.png&photowall=1',
       envVersion: 'release',
       success(res) {
         // 打开成功
@@ -171,10 +171,6 @@ Page({
     })
   },
   newList(e){
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
     let that = this;
     that.setData({
       type: e.currentTarget.dataset.type,

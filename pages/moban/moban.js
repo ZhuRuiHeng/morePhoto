@@ -70,10 +70,6 @@ Page({
     }
   },
   onShow: function () {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
     if (wx.getStorageSync('type')) {
       this.setData({
         type: wx.getStorageSync('type')
@@ -153,10 +149,6 @@ Page({
     }
   },
   navbar(e) {
-    wx.showToast({
-      title: '加载中',
-      icon: 'loading'
-    })
     // 移除缓存
     wx.removeStorageSync('cate_id');
     wx.removeStorageSync('nowImage');
