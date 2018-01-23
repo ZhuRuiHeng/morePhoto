@@ -10,9 +10,14 @@
          <image class='thumb' src='{{thumb}}' mode='aspectFit'></image> 
          <!--12星座  -->
           <view class='box' wx:if="{{temp_id==253}}">
-              <view class='tab tab{{index}}' wx:for="{{consList}}" wx:key="{{index}}" 
-                    data-pw_id='{{index}}' bindtap='xingzuo'></view>
-         </view> 
+              <view class='tab tab{{index+1}}' wx:for="{{allPosition}}" wx:key="{{index}}" data-index="{{index}}"
+                    data-position='{{index+1}}' bindtap='xingzuo' data-rol='{{item}}'>
+                    <view class="rols {{item==0?'active':''}} {{item==-1?'active':''}}" bindtap='checked' 
+                          wx:if="{{!finish}}">
+                      <!-- {{item}} -->
+                    </view>
+              </view>
+          </view> 
     </view>
     <view class='notice'>注：此模板可以上传{{photoInform.counts.length}}张照片</view>
     <view class='buttons'>

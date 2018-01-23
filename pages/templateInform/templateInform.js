@@ -116,6 +116,45 @@ Page({
         }
       }
     })
+    // 请求位置
+    wx.request({
+      url: app.data.apiurl + "photo/can-up-position-list?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+      data: {
+        pw_id: that.data.pw_id
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function (res) {
+        console.log("照片可上传位置:", res);
+        let consList = that.data.consList;
+        function sortNumber(a, b) {
+          return a - b
+        } 
+        //consList.sort(sortNumber);
+        //console.log(consList,"consList");
+        var status = res.data.status;
+        if (status == 1) {
+          let allPosition = res.data.data;
+          let arr = [];
+          allPosition.sort(sortNumber);
+          //console.log(allPosition, "allPosition");
+          for (let i=1;i<consList.length;i++){
+            if (allPosition[i] != consList[i]){
+               // console.log(i);
+                allPosition.splice(i, 0, 0);
+             }
+          }
+          console.log('_allPosition:',allPosition);
+          console.log('arr:', arr);
+          that.setData({
+            allPosition: allPosition,
+            _allPosition: res.data.data
+          })
+        }
+      }
+    })
     // 判断照片墙是否已满
     wx.request({
         url: app.data.apiurl + "photo/is-full?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -360,49 +399,101 @@ Page({
             tips.alert('请选择星座！');
             return;
         }
-        // 占位置给后台start - up - picture
-        wx.request({
-          url: app.data.apiurl + "photo/start-up-picture?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
-          data: {
-            pw_id: that.data.pw_id,
-            position: that.data.position1,
-            form_id: form_id
-          },
-          header: {
-            'content-type': 'application/json'
-          },
-          method: "GET",
-          success: function (res) {
-            console.log("位置后台:", res);
-            var status = res.data.status;
-            if (status == 1) {
-              console.log('传递成功')
-            } else {
-              console.log(res.data.msg);
-            }
-
-          }
-        })
-        // 上传 
-        wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            console.log("选择相册", res);
-            const src = res.tempFilePaths[0]
-            console.log('src', src);
-            wx.setStorageSync('temp_id', that.data.temp_id);
-            wx.setStorageSync('pw_id', that.data.pw_id);
-            wx.redirectTo({
-              url: `../avatarUpload/upload2/upload2?src=${src}`
+      let position = that.data.position1;
+      // 请求位置
+      wx.request({
+        url: app.data.apiurl + "photo/can-up-position-list?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+        data: {
+          pw_id: that.data.pw_id,
+          form_id: form_id
+        },
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("照片可上传位置:", res);
+          console.log(res.data.data, 111);
+          var status = res.data.status;
+          if (status == 1) {
+            that.setData({
+              allPosition: res.data.data
             })
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            var tempFilePaths = res.tempFilePaths;
-            tips.loading('上传中');
-            tips.loaded(); //消失
-            console.log(app.data.apiurl + "api/upload-image?sign=" + sign + ' & operator_id=' + app.data.kid);
+            let source_effect = that.data.source_effect;
+            console.log(position);
+            console.log(source_effect);
+            var arr = []
+            for (var i in source_effect) {
+              arr.push(source_effect[i]); //属性
+              //arr.push(object[i]); //值
+            }
+            // for (let i = 0; i < arr.length; i++) {
+            let weizhi = source_effect[position][0];
+            console.log('weizhi', weizhi);
+            weizhi.split('x');
+            let shuju = weizhi.split('x');
+            that.setData({
+              width: shuju[0],
+              height: shuju[1]
+            })
+            wx.setStorageSync('weizhi', weizhi);
+            wx.setStorageSync('width', shuju[0]);
+            wx.setStorageSync('height', shuju[1]);
+            wx.setStorageSync('position', position);
+            // }
+            // that
+
+            // 占位置给后台start - up - picture
+            wx.request({
+              url: app.data.apiurl + "photo/start-up-picture?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+              data: {
+                pw_id: that.data.pw_id,
+                position: that.data.position,
+                form_id: form_id
+              },
+              header: {
+                'content-type': 'application/json'
+              },
+              method: "GET",
+              success: function (res) {
+                console.log("位置后台:", res);
+                var status = res.data.status;
+                if (status == 1) {
+                  console.log('传递成功')
+                } else {
+                  console.log(res.data.msg);
+                }
+
+              }
+            })
+            // 上传 
+            wx.chooseImage({
+              count: 1, // 默认9that.data.photoInform.counts.length
+              sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+              sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+              success: function (res) {
+                console.log("选择相册", res);
+                const src = res.tempFilePaths[0]
+                console.log('src', src);
+                wx.setStorageSync('pw_id', that.data.pw_id);
+                wx.setStorageSync('temp_id', that.data.temp_id);
+                // wx.redirectTo({
+                //   url: `../wx-cropper1/wx-cropper1?src=${src}&width=${that.data.width}&height=${that.data.height}`
+                // })
+                wx.redirectTo({
+                  url: `../avatarUpload/upload2/upload2?src=${src}&position=${that.data.position}&width=${that.data.width}&height=${that.data.height}`
+                })
+                // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+                var tempFilePaths = res.tempFilePaths;
+                tips.loading('上传中');
+                tips.loaded(); //消失
+              }
+            })
+          } else {
+            console.log(res.data.msg);
           }
+          wx.hideLoading()
+        }
       })
     }else{
       wx.setStorageSync('temp_id', that.data.temp_id);
@@ -508,13 +599,36 @@ Page({
   // 星座
   xingzuo(e){
     let that = this;
-    let position1 = e.currentTarget.dataset.pw_id;
+    let position1 = e.currentTarget.dataset.position;
+    let rol = e.currentTarget.dataset.rol;
+    let index = e.currentTarget.dataset.index;
+    let allPosition = that.data.allPosition;
+    for (let i = 1; i < allPosition.length; i++) {
+      if (allPosition[i] == -1) {
+        console.log(i);
+        allPosition[i] = i;
+      }
+    }
     console.log('position1:', position1);
     wx.setStorageSync('position1', position1);
-    wx.setStorageSync('position', position1)
+    wx.setStorageSync('position', position1);
+    let rols = ['水瓶座', '双鱼座', '白羊座', '双子座', '金牛座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座','摩羯座'];
+    let name = rols[rol-1];
+    if (rol==0){
+      tips.alert('此星座有人上传！');
+    }else{
+      tips.success(name)
+    }
+    allPosition[index]= '-1' ;
+    console.log(allPosition[index]);
     that.setData({
-      position1: position1
+      position1: position1,
+      allPosition: allPosition
     })
+  },
+  checked(e){
+    let that = this;
+
   },
   savePhoto(e){
       let that = this;

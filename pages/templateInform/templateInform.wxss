@@ -272,56 +272,68 @@ form.active button.button-hover{
   height: 100%;
 }
 .tab{
-  /* background:rgba(0, 0, 0, 0.1); */
+  /* background:rgba(252, 129, 158, 0.5);  */
   width: 120rpx;
   height: 214rpx;
   position: absolute;
 }
-.tab0{
-  top: 22rpx;
-  left: 63rpx;
-}
 .tab1{
   top: 22rpx;
-  left: 183rpx;
+  left: 63rpx;
 }
 .tab2{
   top: 22rpx;
-  left: 322rpx;
+  left: 188rpx;
 }
 .tab3{
   top: 22rpx;
-  left: 444rpx;
+  left: 316rpx;
 }
 .tab4{
   top: 22rpx;
-  left: 574rpx;
+  left: 444rpx;
 }
 .tab5{
-  top: 242rpx;
-  left: 63rpx;
+  top: 22rpx;
+  left: 574rpx;
 }
 .tab6{
   top: 242rpx;
-  left: 183rpx;
+  left: 63rpx;
 }
 .tab7{
   top: 242rpx;
-  left: 322rpx;
+  left: 188rpx;
 }
 .tab8{
   top: 242rpx;
-  left: 444rpx;
+  left: 316rpx;
 }
 .tab9{
   top: 242rpx;
-  left: 574rpx;
+  left: 444rpx;
 }
 .tab10{
-  top: 467rpx;
-  left: 443rpx;
+  top: 242rpx;
+  left: 574rpx;
 }
 .tab11{
   top: 467rpx;
+  left: 443rpx;
+}
+.tab12{
+  top: 467rpx;
   left: 574rpx;
+}
+.tab .rols{
+    width: 22rpx;
+    height: 22rpx;
+    border-radius: 50%;
+    border:2px solid #9596ff;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.tab .rols.active{
+   background: #9596ff;
 }

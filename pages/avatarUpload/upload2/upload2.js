@@ -150,6 +150,8 @@ Page({
                         wx.removeStorageSync('width');
                         wx.removeStorageSync('height');
                         wx.removeStorageSync('weizhi');
+                        console.log(111111);
+                        
                         wx.redirectTo({
                           url: '../../templateInform/templateInform?temp_id=' + wx.getStorageSync('temp_id') + '&pw_id=' + wx.getStorageSync('pw_id'),
                         })
