@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view> 
+<!-- <view class="musicList {{music_play?'music_play':'stop'}}"  bindtap='bindPlay'></view>  -->
 <view class="container">
     <view class='navbar'>
         <view wx:for="{{TemplateList}}" class="one {{cate_id==item.cate_id?'active':''}}"  style='background:{{item.bg}}'

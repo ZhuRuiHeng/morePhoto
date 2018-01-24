@@ -6,8 +6,6 @@ Page({
     now:'image',
     show:false,
     page:1,
-    dataUrl: wx.getStorageSync('dataUrl'),
-    music_play:app.data.music_play,
     TemplateList: [
       {
         icon: '../img/1.png',
@@ -92,8 +90,7 @@ Page({
           if (status == 1) {
             that.setData({
               navList: res.data.data,
-              cate_id: that.data.cate_id,
-              music_play: wx.getStorageSync('music_play')
+              cate_id: that.data.cate_id
             })
           } else {
             tips.alert(res.data.msg);
@@ -125,29 +122,7 @@ Page({
       })
     })
   },
-  bindPlay() {
-    var that = this;
-    let music_play = that.data.music_play;
-    if (music_play == true) {
-      console.log('music1');
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
-      })
-    } else {
-      console.log('music2');
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
-      })
-    }
-  },
+ 
   navbar(e) {
     // 移除缓存
     wx.removeStorageSync('cate_id');

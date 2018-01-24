@@ -24,6 +24,21 @@ App({
   },
   onLaunch: function () {
     let that = this;
+    //  背景音乐
+    console.log(that, 'app');
+    that.AppMusic = wx.createInnerAudioContext();
+    that.AppMusic.autoplay = true;
+    that.AppMusic.loop = true;
+    that.AppMusic.onPlay(() => {
+      console.log('开始播放')
+    })
+    that.AppMusic.onPause(() => {
+      console.log('暂停播放')
+    })
+    that.AppMusic.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
     let extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {};
     that.data.kid = extConfig.kid ? extConfig.kid : '54321';
     //that.data.kid = 123; //123 464
@@ -36,22 +51,6 @@ App({
   onShow: function () {
     console.log("appshow");
     var that = this;
-    var dataUrl = that.data.dataUrl;
-    wx.onBackgroundAudioStop(function () {
-      console.log("音乐停止，自动循环");
-      wx.playBackgroundAudio({
-        dataUrl: dataUrl
-      })
-    });
-    wx.setStorageSync('music_play', that.data.music_play);
-    if (that.data.music_play==true){
-      wx.playBackgroundAudio({
-        dataUrl: that.data.dataUrl
-      })
-    }else{
-      wx.pauseBackgroundAudio();
-    }
-
   },
   getAuth(cb) {
     // var that = this;
@@ -200,27 +199,7 @@ App({
   globalData: {
     baseUrl: 'https://friend-guess.playonwechat.com/'
   },
-  // 音乐
-  bindPlay: function () {
-    var that = this;
-    let music_play = app.data.music_play;
-    console.log('music_play:', music_play);
-    if (music_play == true) {
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      that.setData({
-        music_play: false
-      })
-    } else {
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      that.setData({
-        music_play: true
-      })
-    }
-  },
+  
   showLoading: function (title) {
     if (!title) {
       title = '正在加载图片中';
@@ -233,8 +212,6 @@ App({
     wx.hideLoading();
   },
   onHide: function () {
-    wx.stopBackgroundAudio();
-    console.log('stop music');
   }
   
 })

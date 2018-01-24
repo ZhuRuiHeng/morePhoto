@@ -94,6 +94,7 @@ page{
   font-size: 26rpx;
   box-sizing: border-box;
   text-align: center;
+  position: relative;
 }
 .nowInform view{
   flex: 1;
@@ -220,4 +221,17 @@ image.play{
 }
 .left,.right{
   line-height: 130rpx;
+}
+.background{
+  position: absolute;
+  bottom: 100rpx; 
+  right: 10%;  
+  z-index: 99;
+}
+.background image{
+  width:120rpx;
+  height: 120rpx;
+   /* -webkit-animation: mymove 3s linear infinite;
+  animation: mymove 3s linear infinite;
+  -webkit-tap-highlight-color: transparent; */
 }

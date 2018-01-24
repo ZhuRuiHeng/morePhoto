@@ -11,7 +11,7 @@ Page({
     show:false,
     newName: '朋友照片墙',
     dataUrl: wx.getStorageSync('dataUrl'),
-    music_play: wx.getStorageSync('music_play'),
+    music_play: app.data.music_play,
     zindex: false
   },
   onLoad: function (options) {
@@ -26,7 +26,7 @@ Page({
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
       show: false,
-      music_play: wx.getStorageSync('music_play'),
+      music_play: app.data.music_play,
       now: 1,
       zindex: false
     })
@@ -187,24 +187,25 @@ Page({
   bindPlay() {
     var that = this;
     let music_play = that.data.music_play;
-    console.log(app.data.dataUrl);
     if (music_play == true) {
-      console.log(1);
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
+      app.AppMusic.pause();
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
       })
     } else {
-      console.log(2);
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
       })
     }
   },

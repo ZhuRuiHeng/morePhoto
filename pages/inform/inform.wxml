@@ -17,6 +17,10 @@
                     </view>
                 </view>
             </view>
+            <!--点赞  -->
+             <view class='background' wx:if="{{zanTap1}}"> 
+                <image src="{{gif}}" mode='widthFix'></image>
+            </view> 
             <!-- <view class='lowNight'>
               阅读 {{info.click_count}} 
               <view class='zan' bindtap='zanTap' data-type='photowall' data-index='{{item.index}}'

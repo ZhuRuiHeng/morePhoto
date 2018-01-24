@@ -10,7 +10,7 @@ Page({
     type:'new',
     rules:false,
     oldWiner:false,
-    music_play: wx.getStorageSync('music_play'),
+    music_play: app.data.music_play,
     dataUrl: '',
     finish:true,
     num: Math.random(),
@@ -20,7 +20,6 @@ Page({
     gif: 'http://ovhvevt35.bkt.clouddn.com/photo/love.gif?' + Math.random()
   },
   onLoad: function (options) {
-    
     //wx.removeStorageSync('activity')
     let that = this;
     // 活动信息
@@ -68,16 +67,12 @@ Page({
             console.log("music:", res);
             var status = res.data.status;
             if (status == 1) {
-              app.data.dataUrl = res.data.data.url;
-              if (wx.getStorageSync("music_play") == false) {
-                that.setData({
-                  music_play: false
+                app.AppMusic.src = res.data.data.url;
+                app.AppMusic.onPlay(() => {
+                  console.log('开始播放')
                 })
-              } else {
-                wx.playBackgroundAudio({ //播放音乐
-                  dataUrl: res.data.data.url
-                })
-              }
+                console.log('app.AppMusic')
+             
               wx.setStorageSync('dataUrl', res.data.data.url);
               that.setData({
                 dataUrl: res.data.data.url
@@ -90,19 +85,47 @@ Page({
         })
     })
   },
+  onReady:function(){
+  },
   onShow: function () {
-    
-    console.log(wx.getStorageSync('activity'));
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading'
+    })
     let that = this;
+    console.log("app.data.music_play",app.data.music_play);
+    that.setData({
+      music_play: app.data.music_play
+    })
+    if (app.data.music_play == true) {
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
+      })
+    }else{
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
+      })
+    }
+    console.log(wx.getStorageSync('activity'));
     that.setData({
       show: false,
       type: 'new',
-      music_play: wx.getStorageSync('music_play')
     })
     if (that.data.type =='activity'){
        allList: false
     }
     app.getAuth(function () {
+
         wx.request({
             url: app.data.apiurl2 + "photo/photo-circle?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
             data:{
@@ -135,28 +158,32 @@ Page({
         
     })
   },
-  bindPlay(){
+  bindPlay() {
+    console.log('bindPlay');
     var that = this;
     let music_play = that.data.music_play;
-    if(music_play == true) {
-      console.log('music1');
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
+    if (music_play == true) {
+      app.AppMusic.pause();
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
       })
     } else {
-      console.log('music2');
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-    app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
       })
     }
+    console.log("music_play:",that.data.music_play)
   },
   // 联系客服
   chart() {
@@ -208,7 +235,6 @@ Page({
                 join: false
               })
             }
-            wx.hideLoading()
           } else {
             //tips.alert(res.data.msg);
           }
@@ -244,7 +270,6 @@ Page({
           })
           tips.alert(res.data.msg);
         }
-        wx.hideLoading()
       }
     })
   },

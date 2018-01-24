@@ -11,13 +11,12 @@ Page({
     big:1,
     show:false,
     newName: '朋友照片墙',
-    dataUrl: wx.getStorageSync('dataUrl'),
-    music_play: wx.getStorageSync('music_play'),
     oldPage: 2,
   },
   onLoad: function (options) {
     this.setData({
-      userInfo: wx.getStorageSync('userInfo')
+      userInfo: wx.getStorageSync('userInfo'),
+      big: options.big
     })
   },
   onShow: function () {
@@ -27,7 +26,6 @@ Page({
     that.setData({
       userInfo: wx.getStorageSync('userInfo'),
       show: false,
-      music_play: wx.getStorageSync('music_play'),
       big: 1,
     })
     app.getAuth(function () {
@@ -203,89 +201,8 @@ Page({
       }
     })
   },
-  bindPlay() {
-    var that = this;
-    let music_play = that.data.music_play;
-    if (music_play == true) {
-      console.log(1);
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
-      })
-    } else {
-      console.log(2);
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
-      })
-    }
-  },
   
-  // 音乐列表
-  musicList: function (e) {
-    console.log(e);
-    this.setData({
-      music: true,
-      _pw_id: e.currentTarget.dataset.pw_id,
-      index: e.currentTarget.dataset.index
-    })
-  },
-  checkMusic(e) {
-    wx.showLoading({
-      title: '加载中',
-    })
-    console.log(e);
-    let music_id = e.currentTarget.dataset.music_id;
-    let that = this;
-    let sign = wx.getStorageSync('sign');
-    wx.request({
-      url: apiurl + "photo/edit-music?sign=" + sign + '&operator_id=' + app.data.kid,
-      data: {
-        music_id: music_id,
-        pw_id: that.data._pw_id
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
 
-        var status = res.data.status;
-        if (status == 1) {
-          console.log("修改背景:", res);
-          that.setData({
-            music: false,
-            newMusicurl: e.currentTarget.dataset.url,
-            newMusicname: e.currentTarget.dataset.name,
-            newMusicsinger: e.currentTarget.dataset.singer
-          })
-          tips.success('修改背景音乐成功！');
-          let photosList = that.data.photosList;
-          console.log(photosList);
-          for (let i = 0; i < photosList.length; i++) {
-            photosList[that.data.index].music_info.url = e.currentTarget.dataset.url
-            photosList[that.data.index].music_info.name = e.currentTarget.dataset.name
-            photosList[that.data.index].music_info.singer = e.currentTarget.dataset.singer
-            console.log(that.data.index);
-          }
-          that.setData({
-            photosList
-          })
-          //console.log("new:", that.data.photosList)
-
-        } else {
-          tips.alert(res.data.msg);
-        }
-
-      }
-    })
-  },
   cancel() {
     this.setData({
       music: false

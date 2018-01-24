@@ -11,7 +11,7 @@ Page({
     checkboxs: 1,
     finish:false,
     dataUrl: wx.getStorageSync('dataUrl'),
-    music_play: wx.getStorageSync('music_play'),
+    music_play: app.data.music_play,
     button:true
   },
 
@@ -28,11 +28,56 @@ Page({
          ewm: options.ewm
       })
     }
+    if (app.AppMusic.src.length < 2) {
+      console.log(app.AppMusic.src.length, 'length');
+      wx.request({
+        url: app.data.apiurl3 + "photo/get-music?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("music:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            app.AppMusic.src = res.data.data.url;
+            app.AppMusic.onPlay(() => {
+              console.log('开始播放')
+            })
+            console.log('app.AppMusic')
+
+            wx.setStorageSync('dataUrl', res.data.data.url);
+            that.setData({
+              dataUrl: res.data.data.url
+            })
+          } else {
+            console.log(res.data.msg);
+          }
+          wx.hideLoading()
+        }
+      })
+    }
   },
-  onShow: function () {
-    console.log('music_play',wx.getStorageSync('music_play'));
-    if (wx.getStorageSync('music_play')==false){
-      wx.pauseBackgroundAudio();//暂停
+  onShow: function () {;
+    if (app.data.music_play == false) {
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
+      })
+    } else if (app.data.music_play == true) {
+      console.log(app.AppMusic.src, 'src');
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        that.setData({
+          music_play: true
+        })
+      })
     }
     wx.showLoading({
       title: '加载中',
@@ -56,7 +101,7 @@ Page({
             thumb: res.data.data.pic + '?' + that.data.num,
             temp_id: res.data.data.temp_id,
             self: res.data.data.self,
-            music_play: wx.getStorageSync('music_play')
+            music_play: app.data.music_play
           })
           wx.request({
             url: app.data.apiurl + "photo/template-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -122,22 +167,24 @@ Page({
     var that = this;
     let music_play = that.data.music_play;
     if (music_play == true) {
-      console.log('music1');
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
+      app.AppMusic.pause();
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
       })
     } else {
-      console.log('music2');
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
       })
     }
   },
@@ -223,12 +270,7 @@ Page({
             if (status == 1) {
               console.log(res);
               if (that.data.finish) {
-                wx.pauseBackgroundAudio();//暂停
-                app.data.music_play = false;
-                that.setData({
-                  music_play: false
-                })
-                wx.navigateTo({
+                 wx.navigateTo({
                   url: '../seephoto/seephoto?pw_id=' + that.data.pw_id + '&temp_id=' + that.data.temp_id,
                 })
               } else {

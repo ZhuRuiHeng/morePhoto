@@ -11,7 +11,7 @@ Page({
       checkboxs: 1, //0不展示  1展示
       finish:false, //是否拼完
       num: Math.random(),
-      music_play: wx.getStorageSync('music_play'),
+      music_play: app.data.music_play,
       dataUrl: wx.getStorageSync('dataUrl'),
       button:true, //生成照片墙为false，回调中为true
       self:true,
@@ -24,13 +24,59 @@ Page({
       temp_id: options.temp_id,
       pw_id: options.pw_id
     })
-    wx.setStorageSync('temp_id', options.temp_id)
-    
+    wx.setStorageSync('temp_id', options.temp_id);
+    if (app.AppMusic.src.length<2){
+      console.log(app.AppMusic.src.length,'length');
+      wx.request({
+        url: app.data.apiurl3 + "photo/get-music?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+        header: {
+          'content-type': 'application/json'
+        },
+        method: "GET",
+        success: function (res) {
+          console.log("music:", res);
+          var status = res.data.status;
+          if (status == 1) {
+            app.AppMusic.src = res.data.data.url;
+            app.AppMusic.onPlay(() => {
+              console.log('开始播放')
+            })
+            console.log('app.AppMusic')
+
+            wx.setStorageSync('dataUrl', res.data.data.url);
+            that.setData({
+              dataUrl: res.data.data.url
+            })
+          } else {
+            console.log(res.data.msg);
+          }
+          wx.hideLoading()
+        }
+      })
+    }
   },
   onShow: function () {
-    console.log('music_play', wx.getStorageSync('music_play'));
-    if (wx.getStorageSync('music_play') == false) {
-      wx.pauseBackgroundAudio();//暂停
+    console.log('music_play', app.data.music_play);
+    if (app.data.music_play == false) {
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
+      })
+    } else if(app.data.music_play == true){
+      console.log(app.AppMusic.src,'src');
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
+      })
     }
     wx.showToast({
       title: '加载中',
@@ -38,7 +84,7 @@ Page({
     })
     let that = this;
     that.setData({
-      music_play: wx.getStorageSync('music_play')
+      music_play: app.data.music_play
     })
     wx.request({
       url: app.data.apiurl + "photo/template-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -83,6 +129,7 @@ Page({
             temp_id: res.data.data.temp_id,
             self: res.data.data.self
           })
+          // 模板详情
           wx.request({
             url: app.data.apiurl + "photo/template-info?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
             data: {
@@ -106,6 +153,48 @@ Page({
               }
             },
           })
+          // 请求位置
+          if (res.data.data.temp_id==253){
+              wx.request({
+                url: app.data.apiurl + "photo/can-up-position-list?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
+                data: {
+                  pw_id: that.data.pw_id
+                },
+                header: {
+                  'content-type': 'application/json'
+                },
+                method: "GET",
+                success: function (res) {
+                  //console.log("照片可上传位置253:", res);
+                  //console.log("照片可上传位置253:", res.data.data);
+                  let consList = that.data.consList;
+                  function sortNumber(a, b) {
+                    return a - b
+                  }
+                 // consList.sort(sortNumber);
+                  console.log(consList,"consList");
+                  var status = res.data.status;
+                  if (status == 1) {
+                    let allPosition = res.data.data;
+                    let arr = [];
+                    allPosition.sort(sortNumber);
+                    //console.log(allPosition, "allPosition");
+                    for (let i = 0; i < consList.length; i++) {
+                      if (allPosition[i] != consList[i]) {
+                        // console.log(i);
+                        allPosition.splice(i, 0, 0);
+                      }
+                    }
+                   // console.log('_allPosition:', allPosition);
+                   // console.log('arr:', arr);
+                    that.setData({
+                      allPosition: allPosition,
+                      _allPosition: res.data.data
+                    })
+                  }
+                }
+              })
+          }
         }else{
           tips.alert(res.data.msg);
           setTimeout(function(){
@@ -116,45 +205,7 @@ Page({
         }
       }
     })
-    // 请求位置
-    wx.request({
-      url: app.data.apiurl + "photo/can-up-position-list?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
-      data: {
-        pw_id: that.data.pw_id
-      },
-      header: {
-        'content-type': 'application/json'
-      },
-      method: "GET",
-      success: function (res) {
-        console.log("照片可上传位置:", res);
-        let consList = that.data.consList;
-        function sortNumber(a, b) {
-          return a - b
-        } 
-        //consList.sort(sortNumber);
-        //console.log(consList,"consList");
-        var status = res.data.status;
-        if (status == 1) {
-          let allPosition = res.data.data;
-          let arr = [];
-          allPosition.sort(sortNumber);
-          //console.log(allPosition, "allPosition");
-          for (let i=1;i<consList.length;i++){
-            if (allPosition[i] != consList[i]){
-               // console.log(i);
-                allPosition.splice(i, 0, 0);
-             }
-          }
-          console.log('_allPosition:',allPosition);
-          console.log('arr:', arr);
-          that.setData({
-            allPosition: allPosition,
-            _allPosition: res.data.data
-          })
-        }
-      }
-    })
+    
     // 判断照片墙是否已满
     wx.request({
         url: app.data.apiurl + "photo/is-full?sign=" + wx.getStorageSync('sign') + '&operator_id=' + app.data.kid,
@@ -233,27 +284,31 @@ Page({
   },
   // 音乐
   bindPlay() {
+    console.log('bindPlay', app.AppMusic.src)
     var that = this;
     let music_play = that.data.music_play;
     if (music_play == true) {
-      console.log('music1');
-      wx.pauseBackgroundAudio();//暂停
-      app.data.music_play = false;
-      wx.setStorageSync('music_play', false)
-      that.setData({
-        music_play: false
+      app.AppMusic.pause();
+      app.AppMusic.onPause(() => {
+        console.log('暂停播放');
+        wx.setStorageSync('music_play', false);
+        app.data.music_play = false;
+        that.setData({
+          music_play: false
+        })
       })
     } else {
-      console.log('music2');
-      wx.playBackgroundAudio({ //播放
-        dataUrl: app.data.dataUrl
-      })
-      app.data.music_play = true;
-      wx.setStorageSync('music_play', true)
-      that.setData({
-        music_play: true
+      app.AppMusic.play();
+      app.AppMusic.onPlay(() => {
+        console.log('开始播放');
+        app.data.music_play = true;
+        wx.setStorageSync('music_play', true)
+        that.setData({
+          music_play: true
+        })
       })
     }
+
   },
   // 是否同意展示
   Change: function (e) {
@@ -603,6 +658,7 @@ Page({
     let rol = e.currentTarget.dataset.rol;
     let index = e.currentTarget.dataset.index;
     let allPosition = that.data.allPosition;
+    console.log(position1, rol, index, allPosition);
     for (let i = 1; i < allPosition.length; i++) {
       if (allPosition[i] == -1) {
         console.log(i);
@@ -613,7 +669,7 @@ Page({
     wx.setStorageSync('position1', position1);
     wx.setStorageSync('position', position1);
     let rols = ['水瓶座', '双鱼座', '白羊座', '双子座', '金牛座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座','摩羯座'];
-    let name = rols[rol-1];
+    let name = rols[index];
     if (rol==0){
       tips.alert('此星座有人上传！');
     }else{

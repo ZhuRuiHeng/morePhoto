@@ -5,7 +5,9 @@ Page({
 
   data: {
     userInfo: wx.getStorageSync('userInfo'),
-    url: 'https://friend-guess.playonwechat.com/assets/images/result/40741d60add2279916d8783b3d6667f9.jpg?1513410944?0.5924372259162527'
+    url: 'https://friend-guess.playonwechat.com/assets/images/result/40741d60add2279916d8783b3d6667f9.jpg?1513410944?0.5924372259162527',
+    gif: 'http://ovhvevt35.bkt.clouddn.com/photo/love.gif?' + Math.random(),
+    zanTap1: false
   },
   onLoad: function (options) {
     console.log(options);
@@ -36,6 +38,7 @@ Page({
         },
         method: "GET",
         success: function (res) {
+          wx.hideLoading()
           console.log("照片墙详情:", res);
           var status = res.data.status;
           if (status == 1) {
@@ -56,7 +59,6 @@ Page({
             },2000)
             
           }
-          wx.hideLoading()
         }
       })
 
@@ -118,8 +120,16 @@ Page({
           if (res.data.data.flag == true) {
             let thumb_count = parseInt(info.thumb_count);
             //console.log(typeof (thumb_count));
-            info.thumb_count = thumb_count + 1
-            tips.success('点赞成功！')
+            info.thumb_count = thumb_count + 1;
+            that.setData({
+              zanTap1: true
+            })
+            setTimeout(function () {
+              that.setData({
+                zanTap1: false
+              })
+            }, 1000)
+           // tips.success('点赞成功！')
           } else {
             tips.alert('点过赞了哦！')
           }

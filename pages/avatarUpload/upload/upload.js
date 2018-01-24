@@ -102,7 +102,7 @@ Page({
                       console.log('上传成功！')
                       //  获取到裁剪后的图片
                       wx.redirectTo({
-                        url: '../../templateInform/templateInform?temp_id=' + wx.getStorageSync('temp_id')+'&pw_id='+ wx.getStorageSync('pw_id'),
+                        url: '../../templateInform/templateInform?temp_id=' + wx.getStorageSync('temp_id') + '&pw_id=' + wx.getStorageSync('pw_id') + '&big=2',
                       })
 
                     } else {
@@ -127,7 +127,7 @@ Page({
         console.log('获取图片失败，请稍后重试'),
         setTimeout(function(){
           wx.redirectTo({
-            url: '../../templateInform/templateInform?temp_id=' + wx.getStorageSync('temp_id'),
+            url: '../../templateInform/templateInform?temp_id=' + wx.getStorageSync('temp_id') +'&big=2',
           })
         },1000)
           
